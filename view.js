@@ -55,7 +55,6 @@ const renderProjectTodos = function(project) {
     todoInput.name = "todo";
     todoInput.id = `card${i}-checkbox`;
     todoInput.classList.add("card--checkbox");
-    //`<input type="checkbox" name="todo" id="card${i}-checkbox" class="card--checkbox">`;
 
     let todoName = document.createElement("h3");
     todoName.classList.add("card--todo-name");
@@ -79,7 +78,15 @@ const renderProjectTodos = function(project) {
 
     let todoPriority = document.createElement("span");
     todoPriority.classList.add("card--todo-priority");
-    todoPriority.innerHTML = project.todoList[i].priority;
+    if (project.todoList[i].priority === 1) {
+      todoPriority.innerHTML = "🔥";
+    } else if (project.todoList[i].priority === 2) {
+      todoPriority.innerHTML = "🔥🔥";
+    } else if (project.todoList[i].priority === 3) {
+      todoPriority.innerHTML = "🔥🔥🔥";
+    } else {
+      todoPriority.innerHTML = project.todoList[i].priority;
+    }
 
     todoTab.appendChild(leftSpan);
     todoTab.appendChild(todoPriority);
@@ -135,11 +142,11 @@ const getTodo = function() {
   let priority;
 
   if (radiosPriority[0].checked) {
-    priority = "🔥";
+    priority = "1";
   } else if (radiosPriority[1].checked) {
-    priority = "🔥🔥";
+    priority = "2";
   } else if (radiosPriority[2].checked) {
-    priority = "🔥🔥🔥";
+    priority = "3";
   }
 
   let radiosCompleted = document.getElementsByName("completed");
@@ -208,11 +215,11 @@ const loadTodoPopup = function(todo) {
   document.getElementById("title").value = todo.title;
   document.getElementById("description").value = todo.description;
   document.getElementById("dueDate").value = todo.dueDate;
-  if (todo.priority === "🔥") {
+  if (todo.priority === "1") {
     document.getElementsByName("priority")[0].checked = true;
-  } else if (todo.priority === "🔥🔥") {
+  } else if (todo.priority === "2") {
     document.getElementsByName("priority")[1].checked = true;
-  } else if (todo.priority === "🔥🔥🔥") {
+  } else if (todo.priority === "3") {
     document.getElementsByName("priority")[2].checked = true;
   }
 
