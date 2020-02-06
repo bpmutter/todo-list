@@ -50,7 +50,12 @@ const renderProjectTodos = function(project) {
     let leftSpan = document.createElement("span");
     leftSpan.classList.add("card--items-left");
 
-    let todoInput = `<input type="checkbox" name="todo" id="card${i}-checkbox" class="card--checkbox">`;
+    let todoInput = document.createElement("input");
+    todoInput.type = "checkbox";
+    todoInput.name = "todo";
+    todoInput.id = `card${i}-checkbox`;
+    todoInput.classList.add("card--checkbox");
+    //`<input type="checkbox" name="todo" id="card${i}-checkbox" class="card--checkbox">`;
 
     let todoName = document.createElement("h3");
     todoName.classList.add("card--todo-name");
@@ -60,14 +65,16 @@ const renderProjectTodos = function(project) {
     todoDate.classList.add("card--todo-date");
     todoDate.innerHTML = project.todoList[i].dueDate;
 
-    leftSpan.innerHTML = todoInput;
+    leftSpan.appendChild(todoInput);
     leftSpan.appendChild(todoName);
     leftSpan.appendChild(todoDate);
 
     if (project.todoList[i].completed == true) {
       todoName.style.textDecoration = "line-through";
+      todoInput.checked = true;
     } else {
       todoName.style.textDecoration = "none";
+      todoInput.checked = false;
     }
 
     let todoPriority = document.createElement("span");
