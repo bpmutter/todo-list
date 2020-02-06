@@ -2,14 +2,20 @@
     margin: 0;
     padding: 0;
 }
-body{
-    margin-bottom: 50px;
+html, body{
+
     font-family: monospace;
     font-size: 20px;
+    height: 100%;
+    margin: 0;
+    box-sizing: content-box;
 }
-.main{
+#main{
+    min-height: 100%;
     display:grid;
     grid-template-columns: repeat(12,1fr);
+    grid-template-rows: 4rem auto;
+
 }
 
 /* GLOBAL STYLES */
@@ -33,20 +39,26 @@ body{
     background-color: whitesmoke;
     color: #404040;
 }
+.hidden{
+    display: none !important;
+}
 
 /* HEADER STYLES */
 header{
     grid-column: 1/13;
+    grid-row: 1/2;
     background-color: lightskyblue;
     height: 4rem;
     text-align: center;
     padding-top: 1rem;
-    border-bottom: 4px solid #404040;
+
 }
 
 /* MAIN CONTENT STYLES */
 #main-content{
+    border-top: 4px solid #404040;
     grid-column: 1/13;
+    grid-row: 2/3;
     background-color: pink;
 
     display:grid;
@@ -56,14 +68,49 @@ header{
 /* PROJECTS SIDEBAR */
 #sidebar--projects{
     grid-column: 1/4;
-    background-color: aliceblue;
+    background-color: whitesmoke;
     border-right: 3px solid #404040;
+    display: grid;
+    grid-template-rows: 3rem 3rem auto ;
 }
 #container--projects-title{
-    padding: .55rem;
-    padding-top: 1rem;
-    height: 3rem;
-    border-bottom: 2px solid #404040;
+    background-color: whitesmoke;
+    justify-self: center;
+    align-self: center;
+
+    grid-row: 1/2;
+    /* border-bottom: 2px solid #404040; */
+
+}
+#container--create-project{
+    background-color: whitesmoke;
+    padding-left: .5rem;
+    padding-top: .5rem;
+    grid-row: 2/3;
+    border-bottom: 2px #404040 solid;
+
+}
+#input--add-project{
+
+    border-radius: 1px;
+    border: 1px solid #aaa;
+    border-radius: .5rem;
+    font-family: monospace;
+    font-size: 20px;
+    height: 35px;
+    width: auto;
+    margin-right: .75rem;
+    padding-left: .25rem;
+
+}
+#button--add-project{
+    width: 45px;
+}
+
+#container--projects{
+    overflow: auto;
+    grid-row: 3/4;
+    background-color: aliceblue;
 
 }
 
@@ -72,31 +119,58 @@ header{
     border-bottom: 1px #404040 solid;
     display: flex;
     align-items: center;
-    background-color: aliceblue;
 }
 .tab--project:hover{
     background-color: azure;
 }
+.active{
+    background-color: aquamarine !important;
+}
+
 .project-name{
     padding-left:.5rem;
 }
 
-#container--create-project{
-    padding: .5rem;
-}
+
 
 /* PROJECTS TODO */
 #content--project-todos{
     grid-column: 4/13;
     background-color: lightblue;
+    padding: 0 1rem;
 }
 #container--active-project{
-    padding: 1rem .5rem .5rem 1rem;
-
+    padding: 1rem 0 .5rem 1rem !important;
     height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#active-project-name{
+    display: inline-block;
+}
+#container--modify-project{
+    padding-bottom: .75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
 
+#container--modify-project .button--standard{
+    display: inline-block;
+    margin-left: 1rem;
+}
+#order-by{
+    background-color: #404040;
+    color: whitesmoke;
+    border-radius: .5rem;
+    font-size: 16px;
+    font-family: monospace;
+    padding: .5rem;
 
 }
+
 
 
 .card--todo{
@@ -121,6 +195,7 @@ header{
 }
 .card--todo-name{
     display: inline-block;
+    padding-left: .5rem;
 }
 .card--todo-date{
     display: inline-block;
@@ -133,21 +208,111 @@ header{
 }
 
 
+/* POP UP BOX */
+/* The Modal (background) */
+.pop-up {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content/Box */
+.pop-up-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 2rem;
+}
 
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-/* FOOTER STYLES */
-footer{
-    position: fixed;
-    height: 50px;
-    background-color: blue;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin-bottom: 0px;
-    border-top: 4px solid #404040;
-
+fieldset{
+    border-radius: 1rem;
 
 }
+legend{
+    font-size: 1.5em;
+    border: 1px solid #404040;
+    border-radius: 1rem;
+    padding: .2rem 1rem;
+    margin: 0 .5rem;
+    background-color: whitesmoke;
+}
+
+fieldset div{
+    margin: 1rem 0;
+}
+
+.label--add-todo{
+    display:inline-block;
+    text-align:right;
+    font-size: 20px;
+    width: 300px;
+}
+.input--form{
+    border-radius: 1px;
+    border: 1px solid whitesmoke;
+    font-family: monospace;
+    font-size: 16px;
+    height: 20px;
+    width: 400px;
+}
+.text-area--form{
+    border-radius: 1px;
+    border: 1px solid whitesmoke;
+    font-family: monospace;
+    font-size: 16px;
+    height: 40px;
+    width: 400px;
+    vertical-align: top;
+}
+
+.radio{
+    width:auto !important;
+    top: 5px;
+}
+.radio-label{
+    width: auto !important;
+    font-size: 16px !important;
+    padding-bottom: .5rem;
+}
+#submit{
+    margin-left: 300px;
+}
+#update{
+    background-color: forestgreen;
+    margin: 0 .5rem;
+    margin-left: 20%;
+    display: none;
+}
+#delete{
+    background-color: orangered;
+    margin: 0 .5rem;
+
+    display: none;
+
+}
+
 

@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/07987f6265.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
 </head>
 
@@ -21,59 +24,125 @@
         <div id="main-content">
             <section id="sidebar--projects">
                 <div id="container--projects-title">
-                    <h2>Projects</h2>
-                </div>
-                <div id="container--projects">
-                    <div class="tab--project">
-                        <p id="project1" class="project-name">Project 1</p>
-                    </div>
-                    <div class="tab--project">
-                        <p id="project1" class="project-name">Project 2</p>
-                    </div>
-
+                    <h2 id="projects-section-title">Projects</h2>
                 </div>
                 <div id="container--create-project">
-                    <button id="button--create-project" class="button--standard">
-                        Create Project
-                    </button>
+                    <input type="text" placeholder="Name" id="input--add-project" name="input--add-project">
+                    <input type="button" for="input--add-project" id="button--add-project" class="button--standard"
+                        value="+">
                 </div>
+                <div id="container--projects">
 
+                </div>
 
             </section>
+
             <section id="content--project-todos">
                 <div id="container--active-project">
-                    <h2 id="active-project-name">Active Project</h2>
+                    <h2 id="active-project-name"></h2>
+                    <span id="container--modify-project-buttons">
+                        <button id="button--add-todo" class="button--standard"><i class="fas fa-plus"></i><b>
+                                Todo</b></button>
+                        <button id="button--modify-project" class="button--standard"><i
+                                class="fas fa-edit"></i></button>
+                    </span>
+                </div>
+                <div id="container--modify-project" class="hidden">
+                    <span id="order-by">Order by:
+                        <select id="select--order-by">
+                            <option id='date-added' value="date-added">Date Added (Old to New)</option>
+                            <option id='priority' value="priority">Priority (High to Low)</option>
+                            <option id='date-due' value="date-due">Date Due (Past to Future)</option>
+                        </select>
+                    </span>
+                    <button id="button--rename-project" class="button--standard">Rename</i></button>
+                    <button id="button--delete-project" class="button--standard"><i
+                            class="fas fa-trash-alt"></i></button>
                 </div>
                 <div id="container--active-project-todos">
-                    <div class="card--todo" id="activeProject-card0">
-                        <span class="card--left-items">
-                            <input type="checkbox" name="todo" id="card0-checkbox" class="card--checkbox">
-                            <h3 class="card--todo-name">First ToDo</h3>
-                            <span class="card--todo-date">Nov, 2, 2020</span>
-                        </span>
 
-                        <span class="card--todo-priority">***</span>
-                    </div>
-
-                    <div class="card--todo" id="activeProject-card1">
-                        <span class="card--left-items">
-                            <input type="checkbox" name="todo" id="card1-checkbox" class="card--checkbox">
-                            <h3 class="card--todo-name">Second ToDo</h3>
-                            <span class="card--todo-date">Dec, 1, 2020</span>
-                        </span>
-                        <span class="card--todo-priority">**</span>
-                    </div>
 
                 </div>
 
 
             </section>
         </div>
-        <footer>
 
-        </footer>
+        <!-- The Pop up -->
+        <div id="my-pop-up" class="pop-up">
+
+            <!-- Modal content -->
+            <div class="pop-up-content">
+                <span class="close" id="closer">&times;</span>
+                <form class="form-container">
+                    <fieldset>
+                        <legend>Add Todo</legend>
+                        <div>
+                            <label for="title" class="label--add-todo">Title</label>
+                            <input type="text" placeholder="What doe you have to do?" name="title" id="title"
+                                class="input--form" required>
+                        </div>
+
+                        <div>
+                            <label for="description" class="label--add-todo">Description</label>
+                            <input type="text" placeholder="Describe your todo" name="description" id="description"
+                                class="input--form" required>
+                        </div>
+
+                        <div>
+                            <label for="dueDate" class="label--add-todo">Due Date</label>
+                            <input type="date" placeholder="When do you need it by?" name="dueDate" id="dueDate"
+                                class="input--form">
+                        </div>
+
+                        <div>
+                            <label for="priority" class="label--add-todo">Priority</label>
+
+                            <input type="radio" name="priority" id="low-priority" value="low-priority" class="radio" />
+                            <label for="low-priority" class="radio-label">🔥</label>
+
+                            <input type="radio" name="priority" id="medium-priority" value="medium-priority"
+                                class="radio" checked />
+                            <label for="medium-priority" class="radio-label">🔥🔥</label>
+
+                            <input type="radio" name="priority" id="high-priority" value="high-priority"
+                                class="radio" />
+                            <label for="high-priority" class="radio-label">🔥🔥🔥</label>
+
+                        </div>
+
+
+                        <div>
+                            <label for="read_status" class="label--add-todo">Is it completed?</label>
+                            <input type="radio" name="completed" id="completed" value="completed" class="radio" />
+                            <label for="completed" class="radio-label">Completed</label>
+                            <input type="radio" name="completed" id="not-completed" value="not-completed" class="radio"
+                                checked />
+                            <label for="not-completed" class="radio-label">Not Yet</label>
+                        </div>
+
+                        <div>
+                            <label for="notes" class="label--add-todo">Notes</label>
+                            <textarea placeholder="Add a note if you'd like." name="notes" id="notes"
+                                class="text-area--form">
+                            </textarea>
+                        </div>
+
+                        <div id="form-buttons">
+                            <button type="reset" id="submit" class="button--standard">Add Todo!</button>
+                            <button type="reset" id="update" class="button--standard">Update</button>
+                            <button type="reset" id="delete" class="button--standard">Delete</button>
+
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+
+        </div>
+
     </div>
-    <script type="text/javascript" src="todo-constructors.js"></script>
+    <script type="module" src="./controller.js"></script>
 </body>
 
 </html>
