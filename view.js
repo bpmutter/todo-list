@@ -26,7 +26,10 @@ const renderProjectsTabs = function(directory) {
           elements[k].classList.remove("active");
         }
       }
-
+      //remove the modify projects bar when loading a projpect's todos
+      document
+        .getElementById("container--modify-project")
+        .classList.add("hidden");
       renderProjectTodos(directory.projectList[i]);
     });
 
@@ -62,7 +65,9 @@ const renderProjectTodos = function(project) {
 
     let todoDate = document.createElement("span");
     todoDate.classList.add("card--todo-date");
-    todoDate.innerHTML = project.todoList[i].dueDate;
+    const date = project.todoList[i].dueDate;
+    todoDate.innerHTML = `${date.getMonth() +
+      1}-${date.getDate()}-${date.getFullYear()}`;
 
     leftSpan.appendChild(todoInput);
     leftSpan.appendChild(todoName);
@@ -78,11 +83,11 @@ const renderProjectTodos = function(project) {
 
     let todoPriority = document.createElement("span");
     todoPriority.classList.add("card--todo-priority");
-    if (project.todoList[i].priority === 1) {
+    if (parseFloat(project.todoList[i].priority) === 1) {
       todoPriority.innerHTML = "🔥";
-    } else if (project.todoList[i].priority === 2) {
+    } else if (parseFloat(project.todoList[i].priority) === 2) {
       todoPriority.innerHTML = "🔥🔥";
-    } else if (project.todoList[i].priority === 3) {
+    } else if (parseFloat(project.todoList[i].priority) === 3) {
       todoPriority.innerHTML = "🔥🔥🔥";
     } else {
       todoPriority.innerHTML = project.todoList[i].priority;

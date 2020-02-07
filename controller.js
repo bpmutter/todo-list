@@ -10,27 +10,42 @@ import {
   renameProject
 } from "./view.js";
 
+const date1 = new Date("1994-11-02 GMT");
 let exampleTodo1 = new Todo(
   "laundry",
   "wash it",
-  "11/2/1994",
+  date1,
   1,
   "notes",
   false,
   1234
 );
+
+const date2 = new Date("2004-11-02 GMT");
 let exampleTodo2 = new Todo(
   "groceries",
   "buy it",
-  "11/2/2004",
+  date2,
   3,
-  "",
+  "notesssss",
   false,
   123
 );
+
+const date3 = new Date("1971-11-02 GMT");
+let exampleTodo3 = new Todo(
+  "milk",
+  "lactose free pls",
+  date3,
+  2,
+  "notes on notes",
+  true,
+  100000000
+);
 let exampleProject = new Project("My First Project", []);
-exampleProject.addTodo(exampleTodo1);
+exampleProject.addTodo(exampleTodo3);
 exampleProject.addTodo(exampleTodo2);
+exampleProject.addTodo(exampleTodo1);
 
 let projectDirectory = new ProjectDirectory("MyDirectory", [exampleProject]);
 
@@ -79,8 +94,22 @@ document
     projectDirectory.activate(projectDirectory.projectList[0]);
     renderProjectsTabs(projectDirectory);
     renderProjectTodos(projectDirectory.activeProject());
-    //render sidebar and active project
   });
+
+const select = document.getElementById("select--order-by");
+select.addEventListener("change", e => {
+  const activeProject = projectDirectory.activeProject();
+  if (select.value === "date-added") {
+    orderProjectByDate(activeProject);
+  } else if (select.value === "priority") {
+    orderProjectByPriority(activeProject);
+  } else if (select.value === "due-date") {
+    console.log("order by due date");
+  }
+
+  renderProjectsTabs(projectDirectory);
+  renderProjectTodos(projectDirectory.activeProject());
+});
 
 const makeNewProject = function(newProjectName) {
   if (newProjectName == "") {
@@ -92,6 +121,8 @@ const makeNewProject = function(newProjectName) {
   projectDirectory.activate(
     projectDirectory.projectList[projectDirectory.projectList.length - 1]
   );
+
+  document.getElementById("container--modify-project").classList.add("hidden");
   renderProjectTodos(
     projectDirectory.projectList[projectDirectory.projectList.length - 1]
   ); //loads the new project on the right
@@ -102,17 +133,35 @@ const orderProjectByDate = function(project) {
   let todoList = project.todoList;
 
   //reorder todo list by date from old to new(note: same as default), using dateAdded param of Todo constructor
-  todoList.sort((a, b) => parseFloat(a.dateAdded) - parseFloat(b.dateAdded));
-  console.log(todoList);
+  todoList.sort((a, b) => parseFloat(b.dateAdded) - parseFloat(a.dateAdded));
 
   //make project.todoList = reordered todoList
   project.todoList = todoList;
 };
 
-const orderProjectbyPriority = function(project) {
+const orderProjectByPriority = function(project) {
   let todoList = project.todoList;
 
   //reorder project by priority, high to low.
+  todoList.sort((a, b) => parseFloat(b.priority) - parseFloat(a.priority));
 
   project.todoList = todoList;
 };
+
+// const orderProjectByDueDate = function(project) {
+//   const todoList = project.todoList;
+
+//   console.log(todoList[1].dueDate.getTime());
+
+//   todoList.sort((a, b) => a.dueDate.getTime() - b.DueDate.getTime());
+
+//   project.todoList = todoList;
+// };
+
+// orderProjectByDueDate(exampleProject);
+// console.log(exampleProject.todoList);
+
+// import { formatDistance, subDays } from "date-fns";
+
+// console.log(formatDistance(subDays(new Date(), 3), new Date()));
+// //=> "3 days ago"
